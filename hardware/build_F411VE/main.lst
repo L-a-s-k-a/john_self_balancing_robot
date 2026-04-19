@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
   39              		.loc 1 17 5 view .LVU1
   40 0002 FFF7FEFF 		bl	RCC_Init
   41              	.LVL0:
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 2
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 2
 
 
   18:Core/Src/main.c ****     GPIO_Init();
@@ -105,9 +105,9 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
   70 002e FFF7FEFF 		bl	I2C_WriteByte
   71              	.LVL8:
   31:Core/Src/main.c ****     /*--------Магнитометр--------*/
-  32:Core/Src/main.c ****     I2C_WriteByte(0x1e, 0x00, 0x10); // Устанавливаем минимальную скор�
+  32:Core/Src/main.c ****     I2C_WriteByte(0x1e, 0x00, 0x1c); // Устанавливаем минимальную скор�
   72              		.loc 1 32 5 view .LVU10
-  73 0032 1022     		movs	r2, #16
+  73 0032 1C22     		movs	r2, #28
   74 0034 0021     		movs	r1, #0
   75 0036 1E20     		movs	r0, #30
   76 0038 FFF7FEFF 		bl	I2C_WriteByte
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
   80 003e 0121     		movs	r1, #1
   81 0040 1E20     		movs	r0, #30
   82 0042 FFF7FEFF 		bl	I2C_WriteByte
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 3
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 3
 
 
   83              	.LVL10:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  127 008a FFF7FEFF 		bl	I2C_ReadByte
  128              	.LVL17:
   44:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x2D, &data_accel[5]); // Ось Z, старший байт
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 4
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 4
 
 
  129              		.loc 1 44 9 view .LVU20
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  177              		.loc 1 50 17 is_stmt 0 view .LVU41
  178 00cc 1B11     		asrs	r3, r3, #4
  179 00ce 4A48     		ldr	r0, .L4+20
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 5
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 5
 
 
  180 00d0 0380     		strh	r3, [r0]	@ movhi
@@ -278,7 +278,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  211 0116 3D4B     		ldr	r3, .L4+40
  212 0118 C3ED007A 		vstr.32	s15, [r3]
   54:Core/Src/main.c **** 
-  55:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x03, &data_magnetic[0]);
+  55:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x03, &data_magnetic[0]); // Ось Х, старший байт
  213              		.loc 1 55 9 is_stmt 1 view .LVU54
  214 011c 3C4C     		ldr	r4, .L4+44
  215 011e 2246     		mov	r2, r4
@@ -286,41 +286,41 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  217 0122 1E20     		movs	r0, #30
  218 0124 FFF7FEFF 		bl	I2C_ReadByte
  219              	.LVL19:
-  56:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x04, &data_magnetic[1]);
+  56:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x04, &data_magnetic[1]); // Ось Х, младший байт
  220              		.loc 1 56 9 view .LVU55
  221 0128 621C     		adds	r2, r4, #1
  222 012a 0421     		movs	r1, #4
  223 012c 1E20     		movs	r0, #30
  224 012e FFF7FEFF 		bl	I2C_ReadByte
  225              	.LVL20:
-  57:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x05, &data_magnetic[2]);
+  57:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x07, &data_magnetic[2]); // Ось Y, старший байт
  226              		.loc 1 57 9 view .LVU56
  227 0132 A21C     		adds	r2, r4, #2
- 228 0134 0521     		movs	r1, #5
+ 228 0134 0721     		movs	r1, #7
  229 0136 1E20     		movs	r0, #30
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 6
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 6
 
 
  230 0138 FFF7FEFF 		bl	I2C_ReadByte
  231              	.LVL21:
-  58:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x06, &data_magnetic[3]);
+  58:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x08, &data_magnetic[3]); // Ось Y, младший байт
  232              		.loc 1 58 9 view .LVU57
  233 013c E21C     		adds	r2, r4, #3
- 234 013e 0621     		movs	r1, #6
+ 234 013e 0821     		movs	r1, #8
  235 0140 1E20     		movs	r0, #30
  236 0142 FFF7FEFF 		bl	I2C_ReadByte
  237              	.LVL22:
-  59:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x07, &data_magnetic[4]);
+  59:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x05, &data_magnetic[4]); // Ось Z, старший байт
  238              		.loc 1 59 9 view .LVU58
  239 0146 221D     		adds	r2, r4, #4
- 240 0148 0721     		movs	r1, #7
+ 240 0148 0521     		movs	r1, #5
  241 014a 1E20     		movs	r0, #30
  242 014c FFF7FEFF 		bl	I2C_ReadByte
  243              	.LVL23:
-  60:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x08, &data_magnetic[5]);
+  60:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x06, &data_magnetic[5]); // Ось Z, младший байт
  244              		.loc 1 60 9 view .LVU59
  245 0150 621D     		adds	r2, r4, #5
- 246 0152 0821     		movs	r1, #8
+ 246 0152 0621     		movs	r1, #6
  247 0154 1E20     		movs	r0, #30
  248 0156 FFF7FEFF 		bl	I2C_ReadByte
  249              	.LVL24:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  278 017e 1BB2     		sxth	r3, r3
  279              		.loc 1 63 21 view .LVU74
  280 0180 8380     		strh	r3, [r0, #4]	@ movhi
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 7
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 7
 
 
   64:Core/Src/main.c ****         x_magnetic = magnetic[0] / 1100.0f; // Преобразование в Гауссы (для
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  328              	.L5:
  329              		.align	2
  330              	.L4:
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 8
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 8
 
 
  331 01e4 00000000 		.word	dat
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  398              		.global	z_yaw
  399              		.section	.bss.z_yaw,"aw",%nobits
  400              		.align	2
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 9
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 9
 
 
  403              	z_yaw:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  473      0000
  474              		.global	adc_value
  475              		.section	.bss.adc_value,"aw",%nobits
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 10
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 10
 
 
  476              		.align	2
@@ -576,67 +576,67 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
  518              		.file 4 "Core/Inc/init.h"
  519              		.file 5 "Core/Inc/interrupt.h"
  520              		.file 6 "Core/Inc/i2c.h"
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 11
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:21     .text.main:00000000 $t
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:27     .text.main:00000000 main
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:331    .text.main:000001e4 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:458    .bss.dat:00000000 dat
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:472    .bss.data_accel:00000000 data_accel
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:452    .bss.accel:00000000 accel
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:438    .bss.x_accel:00000000 x_accel
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:431    .bss.y_accel:00000000 y_accel
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:424    .bss.z_accel:00000000 z_accel
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:417    .bss.x_roll:00000000 x_roll
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:410    .bss.y_pitch:00000000 y_pitch
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:403    .bss.z_yaw:00000000 z_yaw
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:465    .bss.data_magnetic:00000000 data_magnetic
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:445    .bss.magnetic:00000000 magnetic
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:375    .bss.x_magnetic:00000000 x_magnetic
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:368    .bss.y_magnetic:00000000 y_magnetic
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:361    .bss.z_magnetic:00000000 z_magnetic
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:396    .bss.x_north:00000000 x_north
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:389    .bss.y_east:00000000 y_east
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:382    .bss.z_down:00000000 z_down
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:358    .bss.z_magnetic:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:365    .bss.y_magnetic:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:372    .bss.x_magnetic:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:379    .bss.z_down:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:386    .bss.y_east:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:393    .bss.x_north:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:400    .bss.z_yaw:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:407    .bss.y_pitch:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:414    .bss.x_roll:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:421    .bss.z_accel:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:428    .bss.y_accel:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:435    .bss.x_accel:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:442    .bss.magnetic:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:449    .bss.accel:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:459    .bss.dat:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:462    .bss.data_magnetic:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:469    .bss.data_accel:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:479    .bss.adc_value:00000000 adc_value
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:476    .bss.adc_value:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:486    .bss.GlobalTickCount:00000000 GlobalTickCount
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:483    .bss.GlobalTickCount:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:492    .bss.adc_overrun_count:00000000 adc_overrun_count
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:493    .bss.adc_overrun_count:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:498    .bss.adc_conversion_complete:00000000 adc_conversion_complete
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:499    .bss.adc_conversion_complete:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:505    .bss.adcInter:00000000 adcInter
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:502    .bss.adcInter:00000000 $d
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:512    .bss.adc_buf:00000000 adc_buf
-C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:509    .bss.adc_buf:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:21     .text.main:00000000 $t
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:27     .text.main:00000000 main
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:331    .text.main:000001e4 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:458    .bss.dat:00000000 dat
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:472    .bss.data_accel:00000000 data_accel
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:452    .bss.accel:00000000 accel
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:438    .bss.x_accel:00000000 x_accel
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:431    .bss.y_accel:00000000 y_accel
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:424    .bss.z_accel:00000000 z_accel
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:417    .bss.x_roll:00000000 x_roll
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:410    .bss.y_pitch:00000000 y_pitch
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:403    .bss.z_yaw:00000000 z_yaw
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:465    .bss.data_magnetic:00000000 data_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:445    .bss.magnetic:00000000 magnetic
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:375    .bss.x_magnetic:00000000 x_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:368    .bss.y_magnetic:00000000 y_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:361    .bss.z_magnetic:00000000 z_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:396    .bss.x_north:00000000 x_north
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:389    .bss.y_east:00000000 y_east
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:382    .bss.z_down:00000000 z_down
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:358    .bss.z_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:365    .bss.y_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:372    .bss.x_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:379    .bss.z_down:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:386    .bss.y_east:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:393    .bss.x_north:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:400    .bss.z_yaw:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:407    .bss.y_pitch:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:414    .bss.x_roll:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:421    .bss.z_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:428    .bss.y_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:435    .bss.x_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:442    .bss.magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:449    .bss.accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:459    .bss.dat:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:462    .bss.data_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:469    .bss.data_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:479    .bss.adc_value:00000000 adc_value
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:476    .bss.adc_value:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:486    .bss.GlobalTickCount:00000000 GlobalTickCount
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:483    .bss.GlobalTickCount:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:492    .bss.adc_overrun_count:00000000 adc_overrun_count
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:493    .bss.adc_overrun_count:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:498    .bss.adc_conversion_complete:00000000 adc_conversion_complete
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:499    .bss.adc_conversion_complete:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:505    .bss.adcInter:00000000 adcInter
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:502    .bss.adcInter:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:512    .bss.adc_buf:00000000 adc_buf
+C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s:509    .bss.adc_buf:00000000 $d
 
 UNDEFINED SYMBOLS
 RCC_Init
 GPIO_Init
 SysTick_Init
 ADC_Init
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 12
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc8Rb37T.s 			page 12
 
 
 DMA_Init

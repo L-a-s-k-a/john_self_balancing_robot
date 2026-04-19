@@ -29,7 +29,7 @@ int main(void)
     I2C_WriteByte(0x19, 0x20, 0x57); // Активируем акселерометр (режим normal (100 Гц), все оси включены)
     I2C_WriteByte(0x19, 0x23, 0x08); // Устанавливаем режим выхода высокого разрешения и полный масштаб ±2g (FS = 00)
     /*--------Магнитометр--------*/
-    I2C_WriteByte(0x1e, 0x00, 0x10); // Устанавливаем минимальную скорость вывода данных на 15 Гц (DO = 100)
+    I2C_WriteByte(0x1e, 0x00, 0x1c); // Устанавливаем минимальную скорость вывода данных на 15 Гц (DO = 100)
     I2C_WriteByte(0x1e, 0x01, 0x20); // Устанавливаем усилитель на ±1.3 Гаусса (GN = 001)
     I2C_WriteByte(0x1e, 0x02, 0x00); // Устанавливаем режим непрерывного измерения (MD = 00)
 
@@ -52,12 +52,12 @@ int main(void)
         y_pitch = y_accel * 0.001f * 9.81f; // Дальше умножаем на 9.81 для получения значения в м/с², что может быть полезно для дальнейших расчётов
         z_yaw = z_accel * 0.001f * 9.81f;
 
-        I2C_ReadByte(0x1e, 0x03, &data_magnetic[0]);
-        I2C_ReadByte(0x1e, 0x04, &data_magnetic[1]);
-        I2C_ReadByte(0x1e, 0x05, &data_magnetic[2]);
-        I2C_ReadByte(0x1e, 0x06, &data_magnetic[3]);
-        I2C_ReadByte(0x1e, 0x07, &data_magnetic[4]);
-        I2C_ReadByte(0x1e, 0x08, &data_magnetic[5]);
+        I2C_ReadByte(0x1e, 0x03, &data_magnetic[0]); // Ось Х, старший байт
+        I2C_ReadByte(0x1e, 0x04, &data_magnetic[1]); // Ось Х, младший байт
+        I2C_ReadByte(0x1e, 0x07, &data_magnetic[2]); // Ось Y, старший байт
+        I2C_ReadByte(0x1e, 0x08, &data_magnetic[3]); // Ось Y, младший байт
+        I2C_ReadByte(0x1e, 0x05, &data_magnetic[4]); // Ось Z, старший байт
+        I2C_ReadByte(0x1e, 0x06, &data_magnetic[5]); // Ось Z, младший байт
         magnetic[0] = (int16_t)((data_magnetic[0] << 8) | data_magnetic[1]);
         magnetic[1] = (int16_t)((data_magnetic[2] << 8) | data_magnetic[3]);
         magnetic[2] = (int16_t)((data_magnetic[4] << 8) | data_magnetic[5]);
