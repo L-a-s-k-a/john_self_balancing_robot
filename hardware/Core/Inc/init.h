@@ -13,8 +13,8 @@ extern volatile uint16_t adc_buf[ADC_NUM_CHANNEL - 1];
 extern volatile uint8_t adc_conversion_complete, adc_overrun_count;
 
 void RCC_Init(void);
-void GPIO_Init(void);
 void SysTick_Init(void);
+void GPIO_Init(void);
 void TIM_PWM_Init(void);
 void ADC_Init(void);
 void DMA_Init(void);
