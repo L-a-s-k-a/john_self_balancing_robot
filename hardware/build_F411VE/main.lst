@@ -1,0 +1,646 @@
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/main.c"
+  20              		.section	.text.main,"ax",%progbits
+  21              		.align	1
+  22              		.global	main
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	main:
+  28              	.LFB130:
+   1:Core/Src/main.c **** #include "interrupt.h"
+   2:Core/Src/main.c **** #include "i2c.h"
+   3:Core/Src/main.c **** 
+   4:Core/Src/main.c **** volatile uint16_t adc_buf[ADC_NUM_CHANNEL - 1], adcInter;
+   5:Core/Src/main.c **** volatile uint8_t adc_conversion_complete, adc_overrun_count;
+   6:Core/Src/main.c **** 
+   7:Core/Src/main.c **** uint16_t GlobalTickCount, adc_value[ADC_NUM_CHANNEL - 1];
+   8:Core/Src/main.c **** 
+   9:Core/Src/main.c **** uint8_t data_accel[6], data_magnetic[6], dat;
+  10:Core/Src/main.c **** int16_t accel[3], magnetic[3];
+  11:Core/Src/main.c **** int16_t x_accel, y_accel, z_accel;
+  12:Core/Src/main.c **** float x_roll, y_pitch, z_yaw, x_north, y_east, z_down;
+  13:Core/Src/main.c **** float x_magnetic, y_magnetic, z_magnetic;
+  14:Core/Src/main.c **** 
+  15:Core/Src/main.c **** int main(void)
+  16:Core/Src/main.c **** {
+  29              		.loc 1 16 1 view -0
+  30              		.cfi_startproc
+  31              		@ Volatile: function does not return.
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34 0000 08B5     		push	{r3, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 3, -8
+  38              		.cfi_offset 14, -4
+  17:Core/Src/main.c ****     RCC_Init();
+  39              		.loc 1 17 5 view .LVU1
+  40 0002 FFF7FEFF 		bl	RCC_Init
+  41              	.LVL0:
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 2
+
+
+  18:Core/Src/main.c ****     GPIO_Init();
+  42              		.loc 1 18 5 view .LVU2
+  43 0006 FFF7FEFF 		bl	GPIO_Init
+  44              	.LVL1:
+  19:Core/Src/main.c ****     SysTick_Init();
+  45              		.loc 1 19 5 view .LVU3
+  46 000a FFF7FEFF 		bl	SysTick_Init
+  47              	.LVL2:
+  20:Core/Src/main.c ****     /*Здесь важен порядок инициализации, так как АЦП дол�
+  21:Core/Src/main.c ****      *а DMA до таймера, который запускает преобразование
+  22:Core/Src/main.c ****      */
+  23:Core/Src/main.c ****     ADC_Init();
+  48              		.loc 1 23 5 view .LVU4
+  49 000e FFF7FEFF 		bl	ADC_Init
+  50              	.LVL3:
+  24:Core/Src/main.c ****     DMA_Init();
+  51              		.loc 1 24 5 view .LVU5
+  52 0012 FFF7FEFF 		bl	DMA_Init
+  53              	.LVL4:
+  25:Core/Src/main.c ****     TIM_PWM_Init();
+  54              		.loc 1 25 5 view .LVU6
+  55 0016 FFF7FEFF 		bl	TIM_PWM_Init
+  56              	.LVL5:
+  26:Core/Src/main.c ****     I2C_Init();
+  57              		.loc 1 26 5 view .LVU7
+  58 001a FFF7FEFF 		bl	I2C_Init
+  59              	.LVL6:
+  27:Core/Src/main.c **** 
+  28:Core/Src/main.c ****     /*--------Акселерометр--------*/
+  29:Core/Src/main.c ****     I2C_WriteByte(0x19, 0x20, 0x57); // Активируем акселерометр (режим n
+  60              		.loc 1 29 5 view .LVU8
+  61 001e 5722     		movs	r2, #87
+  62 0020 2021     		movs	r1, #32
+  63 0022 1920     		movs	r0, #25
+  64 0024 FFF7FEFF 		bl	I2C_WriteByte
+  65              	.LVL7:
+  30:Core/Src/main.c ****     I2C_WriteByte(0x19, 0x23, 0x08); // Устанавливаем режим выхода высо
+  66              		.loc 1 30 5 view .LVU9
+  67 0028 0822     		movs	r2, #8
+  68 002a 2321     		movs	r1, #35
+  69 002c 1920     		movs	r0, #25
+  70 002e FFF7FEFF 		bl	I2C_WriteByte
+  71              	.LVL8:
+  31:Core/Src/main.c ****     /*--------Магнитометр--------*/
+  32:Core/Src/main.c ****     I2C_WriteByte(0x1e, 0x00, 0x10); // Устанавливаем минимальную скор�
+  72              		.loc 1 32 5 view .LVU10
+  73 0032 1022     		movs	r2, #16
+  74 0034 0021     		movs	r1, #0
+  75 0036 1E20     		movs	r0, #30
+  76 0038 FFF7FEFF 		bl	I2C_WriteByte
+  77              	.LVL9:
+  33:Core/Src/main.c ****     I2C_WriteByte(0x1e, 0x01, 0x20); // Устанавливаем усилитель на ±1.3 Г
+  78              		.loc 1 33 5 view .LVU11
+  79 003c 2022     		movs	r2, #32
+  80 003e 0121     		movs	r1, #1
+  81 0040 1E20     		movs	r0, #30
+  82 0042 FFF7FEFF 		bl	I2C_WriteByte
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 3
+
+
+  83              	.LVL10:
+  34:Core/Src/main.c ****     I2C_WriteByte(0x1e, 0x02, 0x00); // Устанавливаем режим непрерывно�
+  84              		.loc 1 34 5 view .LVU12
+  85 0046 0022     		movs	r2, #0
+  86 0048 0221     		movs	r1, #2
+  87 004a 1E20     		movs	r0, #30
+  88 004c FFF7FEFF 		bl	I2C_WriteByte
+  89              	.LVL11:
+  90              	.L2:
+  35:Core/Src/main.c **** 
+  36:Core/Src/main.c ****     while (1)
+  91              		.loc 1 36 5 view .LVU13
+  37:Core/Src/main.c ****     {   
+  38:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x20, &dat);
+  92              		.loc 1 38 9 view .LVU14
+  93 0050 644A     		ldr	r2, .L4
+  94 0052 2021     		movs	r1, #32
+  95 0054 1920     		movs	r0, #25
+  96 0056 FFF7FEFF 		bl	I2C_ReadByte
+  97              	.LVL12:
+  39:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x28, &data_accel[0]); // Ось Х, младший байт
+  98              		.loc 1 39 9 view .LVU15
+  99 005a 634C     		ldr	r4, .L4+4
+ 100 005c 2246     		mov	r2, r4
+ 101 005e 2821     		movs	r1, #40
+ 102 0060 1920     		movs	r0, #25
+ 103 0062 FFF7FEFF 		bl	I2C_ReadByte
+ 104              	.LVL13:
+  40:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x29, &data_accel[1]); // Ось Х, старший байт
+ 105              		.loc 1 40 9 view .LVU16
+ 106 0066 621C     		adds	r2, r4, #1
+ 107 0068 2921     		movs	r1, #41
+ 108 006a 1920     		movs	r0, #25
+ 109 006c FFF7FEFF 		bl	I2C_ReadByte
+ 110              	.LVL14:
+  41:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x2A, &data_accel[2]); // Ось Y, младший байт
+ 111              		.loc 1 41 9 view .LVU17
+ 112 0070 A21C     		adds	r2, r4, #2
+ 113 0072 2A21     		movs	r1, #42
+ 114 0074 1920     		movs	r0, #25
+ 115 0076 FFF7FEFF 		bl	I2C_ReadByte
+ 116              	.LVL15:
+  42:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x2B, &data_accel[3]); // Ось Y, старший байт
+ 117              		.loc 1 42 9 view .LVU18
+ 118 007a E21C     		adds	r2, r4, #3
+ 119 007c 2B21     		movs	r1, #43
+ 120 007e 1920     		movs	r0, #25
+ 121 0080 FFF7FEFF 		bl	I2C_ReadByte
+ 122              	.LVL16:
+  43:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x2C, &data_accel[4]); // Ось Z, младший байт
+ 123              		.loc 1 43 9 view .LVU19
+ 124 0084 221D     		adds	r2, r4, #4
+ 125 0086 2C21     		movs	r1, #44
+ 126 0088 1920     		movs	r0, #25
+ 127 008a FFF7FEFF 		bl	I2C_ReadByte
+ 128              	.LVL17:
+  44:Core/Src/main.c ****         I2C_ReadByte(0x19, 0x2D, &data_accel[5]); // Ось Z, старший байт
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 4
+
+
+ 129              		.loc 1 44 9 view .LVU20
+ 130 008e 621D     		adds	r2, r4, #5
+ 131 0090 2D21     		movs	r1, #45
+ 132 0092 1920     		movs	r0, #25
+ 133 0094 FFF7FEFF 		bl	I2C_ReadByte
+ 134              	.LVL18:
+  45:Core/Src/main.c ****         accel[0] = (int16_t)((data_accel[1] << 8) | data_accel[0]); // Комбинирование
+ 135              		.loc 1 45 9 view .LVU21
+ 136              		.loc 1 45 41 is_stmt 0 view .LVU22
+ 137 0098 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+ 138              		.loc 1 45 63 view .LVU23
+ 139 009a 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 140              		.loc 1 45 20 view .LVU24
+ 141 009c 41EA0321 		orr	r1, r1, r3, lsl #8
+ 142 00a0 09B2     		sxth	r1, r1
+ 143              		.loc 1 45 18 view .LVU25
+ 144 00a2 5248     		ldr	r0, .L4+8
+ 145 00a4 0180     		strh	r1, [r0]	@ movhi
+  46:Core/Src/main.c ****         accel[1] = (int16_t)((data_accel[3] << 8) | data_accel[2]); // Комбинирование
+ 146              		.loc 1 46 9 is_stmt 1 view .LVU26
+ 147              		.loc 1 46 41 is_stmt 0 view .LVU27
+ 148 00a6 E378     		ldrb	r3, [r4, #3]	@ zero_extendqisi2
+ 149              		.loc 1 46 63 view .LVU28
+ 150 00a8 A278     		ldrb	r2, [r4, #2]	@ zero_extendqisi2
+ 151              		.loc 1 46 20 view .LVU29
+ 152 00aa 42EA0322 		orr	r2, r2, r3, lsl #8
+ 153 00ae 12B2     		sxth	r2, r2
+ 154              		.loc 1 46 18 view .LVU30
+ 155 00b0 4280     		strh	r2, [r0, #2]	@ movhi
+  47:Core/Src/main.c ****         accel[2] = (int16_t)((data_accel[5] << 8) | data_accel[4]); // Комбинирование
+ 156              		.loc 1 47 9 is_stmt 1 view .LVU31
+ 157              		.loc 1 47 41 is_stmt 0 view .LVU32
+ 158 00b2 94F805C0 		ldrb	ip, [r4, #5]	@ zero_extendqisi2
+ 159              		.loc 1 47 63 view .LVU33
+ 160 00b6 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+ 161              		.loc 1 47 20 view .LVU34
+ 162 00b8 43EA0C23 		orr	r3, r3, ip, lsl #8
+ 163 00bc 1BB2     		sxth	r3, r3
+ 164              		.loc 1 47 18 view .LVU35
+ 165 00be 8380     		strh	r3, [r0, #4]	@ movhi
+  48:Core/Src/main.c ****         x_accel = accel[0] >> 4; // Сдвиг на 4 бита для получения значе
+ 166              		.loc 1 48 9 is_stmt 1 view .LVU36
+ 167              		.loc 1 48 17 is_stmt 0 view .LVU37
+ 168 00c0 0911     		asrs	r1, r1, #4
+ 169 00c2 4B48     		ldr	r0, .L4+12
+ 170 00c4 0180     		strh	r1, [r0]	@ movhi
+  49:Core/Src/main.c ****         y_accel = accel[1] >> 4; // Сдвиг на 4 бита для получения значе
+ 171              		.loc 1 49 9 is_stmt 1 view .LVU38
+ 172              		.loc 1 49 17 is_stmt 0 view .LVU39
+ 173 00c6 1211     		asrs	r2, r2, #4
+ 174 00c8 4A48     		ldr	r0, .L4+16
+ 175 00ca 0280     		strh	r2, [r0]	@ movhi
+  50:Core/Src/main.c ****         z_accel = accel[2] >> 4; // Сдвиг на 4 бита для получения значе
+ 176              		.loc 1 50 9 is_stmt 1 view .LVU40
+ 177              		.loc 1 50 17 is_stmt 0 view .LVU41
+ 178 00cc 1B11     		asrs	r3, r3, #4
+ 179 00ce 4A48     		ldr	r0, .L4+20
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 5
+
+
+ 180 00d0 0380     		strh	r3, [r0]	@ movhi
+  51:Core/Src/main.c ****         x_roll = x_accel * 0.001f * 9.81f; // Поскольку мы используем режи
+ 181              		.loc 1 51 9 is_stmt 1 view .LVU42
+ 182              		.loc 1 51 26 is_stmt 0 view .LVU43
+ 183 00d2 07EE901A 		vmov	s15, r1	@ int
+ 184 00d6 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 185 00da DFED486A 		vldr.32	s13, .L4+24
+ 186 00de 67EEA67A 		vmul.f32	s15, s15, s13
+ 187              		.loc 1 51 35 view .LVU44
+ 188 00e2 9FED477A 		vldr.32	s14, .L4+28
+ 189 00e6 67EE877A 		vmul.f32	s15, s15, s14
+ 190              		.loc 1 51 16 view .LVU45
+ 191 00ea 4649     		ldr	r1, .L4+32
+ 192 00ec C1ED007A 		vstr.32	s15, [r1]
+  52:Core/Src/main.c ****         y_pitch = y_accel * 0.001f * 9.81f; // Дальше умножаем на 9.81 для по�
+ 193              		.loc 1 52 9 is_stmt 1 view .LVU46
+ 194              		.loc 1 52 27 is_stmt 0 view .LVU47
+ 195 00f0 07EE902A 		vmov	s15, r2	@ int
+ 196 00f4 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 197 00f8 67EEA67A 		vmul.f32	s15, s15, s13
+ 198              		.loc 1 52 36 view .LVU48
+ 199 00fc 67EE877A 		vmul.f32	s15, s15, s14
+ 200              		.loc 1 52 17 view .LVU49
+ 201 0100 414A     		ldr	r2, .L4+36
+ 202 0102 C2ED007A 		vstr.32	s15, [r2]
+  53:Core/Src/main.c ****         z_yaw = z_accel * 0.001f * 9.81f;
+ 203              		.loc 1 53 9 is_stmt 1 view .LVU50
+ 204              		.loc 1 53 25 is_stmt 0 view .LVU51
+ 205 0106 07EE903A 		vmov	s15, r3	@ int
+ 206 010a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 207 010e 67EEA67A 		vmul.f32	s15, s15, s13
+ 208              		.loc 1 53 34 view .LVU52
+ 209 0112 67EE877A 		vmul.f32	s15, s15, s14
+ 210              		.loc 1 53 15 view .LVU53
+ 211 0116 3D4B     		ldr	r3, .L4+40
+ 212 0118 C3ED007A 		vstr.32	s15, [r3]
+  54:Core/Src/main.c **** 
+  55:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x03, &data_magnetic[0]);
+ 213              		.loc 1 55 9 is_stmt 1 view .LVU54
+ 214 011c 3C4C     		ldr	r4, .L4+44
+ 215 011e 2246     		mov	r2, r4
+ 216 0120 0321     		movs	r1, #3
+ 217 0122 1E20     		movs	r0, #30
+ 218 0124 FFF7FEFF 		bl	I2C_ReadByte
+ 219              	.LVL19:
+  56:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x04, &data_magnetic[1]);
+ 220              		.loc 1 56 9 view .LVU55
+ 221 0128 621C     		adds	r2, r4, #1
+ 222 012a 0421     		movs	r1, #4
+ 223 012c 1E20     		movs	r0, #30
+ 224 012e FFF7FEFF 		bl	I2C_ReadByte
+ 225              	.LVL20:
+  57:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x05, &data_magnetic[2]);
+ 226              		.loc 1 57 9 view .LVU56
+ 227 0132 A21C     		adds	r2, r4, #2
+ 228 0134 0521     		movs	r1, #5
+ 229 0136 1E20     		movs	r0, #30
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 6
+
+
+ 230 0138 FFF7FEFF 		bl	I2C_ReadByte
+ 231              	.LVL21:
+  58:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x06, &data_magnetic[3]);
+ 232              		.loc 1 58 9 view .LVU57
+ 233 013c E21C     		adds	r2, r4, #3
+ 234 013e 0621     		movs	r1, #6
+ 235 0140 1E20     		movs	r0, #30
+ 236 0142 FFF7FEFF 		bl	I2C_ReadByte
+ 237              	.LVL22:
+  59:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x07, &data_magnetic[4]);
+ 238              		.loc 1 59 9 view .LVU58
+ 239 0146 221D     		adds	r2, r4, #4
+ 240 0148 0721     		movs	r1, #7
+ 241 014a 1E20     		movs	r0, #30
+ 242 014c FFF7FEFF 		bl	I2C_ReadByte
+ 243              	.LVL23:
+  60:Core/Src/main.c ****         I2C_ReadByte(0x1e, 0x08, &data_magnetic[5]);
+ 244              		.loc 1 60 9 view .LVU59
+ 245 0150 621D     		adds	r2, r4, #5
+ 246 0152 0821     		movs	r1, #8
+ 247 0154 1E20     		movs	r0, #30
+ 248 0156 FFF7FEFF 		bl	I2C_ReadByte
+ 249              	.LVL24:
+  61:Core/Src/main.c ****         magnetic[0] = (int16_t)((data_magnetic[0] << 8) | data_magnetic[1]);
+ 250              		.loc 1 61 9 view .LVU60
+ 251              		.loc 1 61 47 is_stmt 0 view .LVU61
+ 252 015a 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 253              		.loc 1 61 72 view .LVU62
+ 254 015c 6178     		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 255              		.loc 1 61 23 view .LVU63
+ 256 015e 41EA0321 		orr	r1, r1, r3, lsl #8
+ 257 0162 09B2     		sxth	r1, r1
+ 258              		.loc 1 61 21 view .LVU64
+ 259 0164 2B48     		ldr	r0, .L4+48
+ 260 0166 0180     		strh	r1, [r0]	@ movhi
+  62:Core/Src/main.c ****         magnetic[1] = (int16_t)((data_magnetic[2] << 8) | data_magnetic[3]);
+ 261              		.loc 1 62 9 is_stmt 1 view .LVU65
+ 262              		.loc 1 62 47 is_stmt 0 view .LVU66
+ 263 0168 A378     		ldrb	r3, [r4, #2]	@ zero_extendqisi2
+ 264              		.loc 1 62 72 view .LVU67
+ 265 016a E278     		ldrb	r2, [r4, #3]	@ zero_extendqisi2
+ 266              		.loc 1 62 23 view .LVU68
+ 267 016c 42EA0322 		orr	r2, r2, r3, lsl #8
+ 268 0170 12B2     		sxth	r2, r2
+ 269              		.loc 1 62 21 view .LVU69
+ 270 0172 4280     		strh	r2, [r0, #2]	@ movhi
+  63:Core/Src/main.c ****         magnetic[2] = (int16_t)((data_magnetic[4] << 8) | data_magnetic[5]);
+ 271              		.loc 1 63 9 is_stmt 1 view .LVU70
+ 272              		.loc 1 63 47 is_stmt 0 view .LVU71
+ 273 0174 94F804C0 		ldrb	ip, [r4, #4]	@ zero_extendqisi2
+ 274              		.loc 1 63 72 view .LVU72
+ 275 0178 6379     		ldrb	r3, [r4, #5]	@ zero_extendqisi2
+ 276              		.loc 1 63 23 view .LVU73
+ 277 017a 43EA0C23 		orr	r3, r3, ip, lsl #8
+ 278 017e 1BB2     		sxth	r3, r3
+ 279              		.loc 1 63 21 view .LVU74
+ 280 0180 8380     		strh	r3, [r0, #4]	@ movhi
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 7
+
+
+  64:Core/Src/main.c ****         x_magnetic = magnetic[0] / 1100.0f; // Преобразование в Гауссы (для
+ 281              		.loc 1 64 9 is_stmt 1 view .LVU75
+ 282              		.loc 1 64 34 is_stmt 0 view .LVU76
+ 283 0182 07EE901A 		vmov	s15, r1	@ int
+ 284 0186 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 285 018a 9FED237A 		vldr.32	s14, .L4+52
+ 286 018e 87EE876A 		vdiv.f32	s12, s15, s14
+ 287              		.loc 1 64 20 view .LVU77
+ 288 0192 2249     		ldr	r1, .L4+56
+ 289 0194 81ED006A 		vstr.32	s12, [r1]
+  65:Core/Src/main.c ****         y_magnetic = magnetic[1] / 1100.0f;
+ 290              		.loc 1 65 9 is_stmt 1 view .LVU78
+ 291              		.loc 1 65 34 is_stmt 0 view .LVU79
+ 292 0198 07EE902A 		vmov	s15, r2	@ int
+ 293 019c F8EEE77A 		vcvt.f32.s32	s15, s15
+ 294 01a0 C7EE876A 		vdiv.f32	s13, s15, s14
+ 295              		.loc 1 65 20 view .LVU80
+ 296 01a4 1E4A     		ldr	r2, .L4+60
+ 297 01a6 C2ED006A 		vstr.32	s13, [r2]
+  66:Core/Src/main.c ****         z_magnetic = magnetic[2] / 980.0f;
+ 298              		.loc 1 66 9 is_stmt 1 view .LVU81
+ 299              		.loc 1 66 34 is_stmt 0 view .LVU82
+ 300 01aa 07EE903A 		vmov	s15, r3	@ int
+ 301 01ae F8EEE77A 		vcvt.f32.s32	s15, s15
+ 302 01b2 DFED1C5A 		vldr.32	s11, .L4+64
+ 303 01b6 87EEA57A 		vdiv.f32	s14, s15, s11
+ 304              		.loc 1 66 20 view .LVU83
+ 305 01ba 1B4B     		ldr	r3, .L4+68
+ 306 01bc 83ED007A 		vstr.32	s14, [r3]
+  67:Core/Src/main.c ****         x_north = x_magnetic * 1000.0f; // Преобразование в мГауссы для у
+ 307              		.loc 1 67 9 is_stmt 1 view .LVU84
+ 308              		.loc 1 67 30 is_stmt 0 view .LVU85
+ 309 01c0 DFED1A7A 		vldr.32	s15, .L4+72
+ 310 01c4 26EE276A 		vmul.f32	s12, s12, s15
+ 311              		.loc 1 67 17 view .LVU86
+ 312 01c8 194B     		ldr	r3, .L4+76
+ 313 01ca 83ED006A 		vstr.32	s12, [r3]
+  68:Core/Src/main.c ****         y_east = y_magnetic * 1000.0f;
+ 314              		.loc 1 68 9 is_stmt 1 view .LVU87
+ 315              		.loc 1 68 29 is_stmt 0 view .LVU88
+ 316 01ce 66EEA76A 		vmul.f32	s13, s13, s15
+ 317              		.loc 1 68 16 view .LVU89
+ 318 01d2 184B     		ldr	r3, .L4+80
+ 319 01d4 C3ED006A 		vstr.32	s13, [r3]
+  69:Core/Src/main.c ****         z_down = z_magnetic * 1000.0f;
+ 320              		.loc 1 69 9 is_stmt 1 discriminator 1 view .LVU90
+ 321              		.loc 1 69 29 is_stmt 0 discriminator 1 view .LVU91
+ 322 01d8 27EE277A 		vmul.f32	s14, s14, s15
+ 323              		.loc 1 69 16 discriminator 1 view .LVU92
+ 324 01dc 164B     		ldr	r3, .L4+84
+ 325 01de 83ED007A 		vstr.32	s14, [r3]
+  36:Core/Src/main.c ****     {   
+ 326              		.loc 1 36 11 is_stmt 1 view .LVU93
+ 327 01e2 35E7     		b	.L2
+ 328              	.L5:
+ 329              		.align	2
+ 330              	.L4:
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 8
+
+
+ 331 01e4 00000000 		.word	dat
+ 332 01e8 00000000 		.word	data_accel
+ 333 01ec 00000000 		.word	accel
+ 334 01f0 00000000 		.word	x_accel
+ 335 01f4 00000000 		.word	y_accel
+ 336 01f8 00000000 		.word	z_accel
+ 337 01fc 6F12833A 		.word	981668463
+ 338 0200 C3F51C41 		.word	1092416963
+ 339 0204 00000000 		.word	x_roll
+ 340 0208 00000000 		.word	y_pitch
+ 341 020c 00000000 		.word	z_yaw
+ 342 0210 00000000 		.word	data_magnetic
+ 343 0214 00000000 		.word	magnetic
+ 344 0218 00808944 		.word	1149861888
+ 345 021c 00000000 		.word	x_magnetic
+ 346 0220 00000000 		.word	y_magnetic
+ 347 0224 00007544 		.word	1148518400
+ 348 0228 00000000 		.word	z_magnetic
+ 349 022c 00007A44 		.word	1148846080
+ 350 0230 00000000 		.word	x_north
+ 351 0234 00000000 		.word	y_east
+ 352 0238 00000000 		.word	z_down
+ 353              		.cfi_endproc
+ 354              	.LFE130:
+ 356              		.global	z_magnetic
+ 357              		.section	.bss.z_magnetic,"aw",%nobits
+ 358              		.align	2
+ 361              	z_magnetic:
+ 362 0000 00000000 		.space	4
+ 363              		.global	y_magnetic
+ 364              		.section	.bss.y_magnetic,"aw",%nobits
+ 365              		.align	2
+ 368              	y_magnetic:
+ 369 0000 00000000 		.space	4
+ 370              		.global	x_magnetic
+ 371              		.section	.bss.x_magnetic,"aw",%nobits
+ 372              		.align	2
+ 375              	x_magnetic:
+ 376 0000 00000000 		.space	4
+ 377              		.global	z_down
+ 378              		.section	.bss.z_down,"aw",%nobits
+ 379              		.align	2
+ 382              	z_down:
+ 383 0000 00000000 		.space	4
+ 384              		.global	y_east
+ 385              		.section	.bss.y_east,"aw",%nobits
+ 386              		.align	2
+ 389              	y_east:
+ 390 0000 00000000 		.space	4
+ 391              		.global	x_north
+ 392              		.section	.bss.x_north,"aw",%nobits
+ 393              		.align	2
+ 396              	x_north:
+ 397 0000 00000000 		.space	4
+ 398              		.global	z_yaw
+ 399              		.section	.bss.z_yaw,"aw",%nobits
+ 400              		.align	2
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 9
+
+
+ 403              	z_yaw:
+ 404 0000 00000000 		.space	4
+ 405              		.global	y_pitch
+ 406              		.section	.bss.y_pitch,"aw",%nobits
+ 407              		.align	2
+ 410              	y_pitch:
+ 411 0000 00000000 		.space	4
+ 412              		.global	x_roll
+ 413              		.section	.bss.x_roll,"aw",%nobits
+ 414              		.align	2
+ 417              	x_roll:
+ 418 0000 00000000 		.space	4
+ 419              		.global	z_accel
+ 420              		.section	.bss.z_accel,"aw",%nobits
+ 421              		.align	1
+ 424              	z_accel:
+ 425 0000 0000     		.space	2
+ 426              		.global	y_accel
+ 427              		.section	.bss.y_accel,"aw",%nobits
+ 428              		.align	1
+ 431              	y_accel:
+ 432 0000 0000     		.space	2
+ 433              		.global	x_accel
+ 434              		.section	.bss.x_accel,"aw",%nobits
+ 435              		.align	1
+ 438              	x_accel:
+ 439 0000 0000     		.space	2
+ 440              		.global	magnetic
+ 441              		.section	.bss.magnetic,"aw",%nobits
+ 442              		.align	2
+ 445              	magnetic:
+ 446 0000 00000000 		.space	6
+ 446      0000
+ 447              		.global	accel
+ 448              		.section	.bss.accel,"aw",%nobits
+ 449              		.align	2
+ 452              	accel:
+ 453 0000 00000000 		.space	6
+ 453      0000
+ 454              		.global	dat
+ 455              		.section	.bss.dat,"aw",%nobits
+ 458              	dat:
+ 459 0000 00       		.space	1
+ 460              		.global	data_magnetic
+ 461              		.section	.bss.data_magnetic,"aw",%nobits
+ 462              		.align	2
+ 465              	data_magnetic:
+ 466 0000 00000000 		.space	6
+ 466      0000
+ 467              		.global	data_accel
+ 468              		.section	.bss.data_accel,"aw",%nobits
+ 469              		.align	2
+ 472              	data_accel:
+ 473 0000 00000000 		.space	6
+ 473      0000
+ 474              		.global	adc_value
+ 475              		.section	.bss.adc_value,"aw",%nobits
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 10
+
+
+ 476              		.align	2
+ 479              	adc_value:
+ 480 0000 00000000 		.space	6
+ 480      0000
+ 481              		.global	GlobalTickCount
+ 482              		.section	.bss.GlobalTickCount,"aw",%nobits
+ 483              		.align	1
+ 486              	GlobalTickCount:
+ 487 0000 0000     		.space	2
+ 488              		.global	adc_overrun_count
+ 489              		.section	.bss.adc_overrun_count,"aw",%nobits
+ 492              	adc_overrun_count:
+ 493 0000 00       		.space	1
+ 494              		.global	adc_conversion_complete
+ 495              		.section	.bss.adc_conversion_complete,"aw",%nobits
+ 498              	adc_conversion_complete:
+ 499 0000 00       		.space	1
+ 500              		.global	adcInter
+ 501              		.section	.bss.adcInter,"aw",%nobits
+ 502              		.align	1
+ 505              	adcInter:
+ 506 0000 0000     		.space	2
+ 507              		.global	adc_buf
+ 508              		.section	.bss.adc_buf,"aw",%nobits
+ 509              		.align	2
+ 512              	adc_buf:
+ 513 0000 00000000 		.space	6
+ 513      0000
+ 514              		.text
+ 515              	.Letext0:
+ 516              		.file 2 "C:/Programm/tools/xpack-arm-none-eabi-gcc-14.2.1-1.1/arm-none-eabi/include/machine/_defau
+ 517              		.file 3 "C:/Programm/tools/xpack-arm-none-eabi-gcc-14.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
+ 518              		.file 4 "Core/Inc/init.h"
+ 519              		.file 5 "Core/Inc/interrupt.h"
+ 520              		.file 6 "Core/Inc/i2c.h"
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:21     .text.main:00000000 $t
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:27     .text.main:00000000 main
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:331    .text.main:000001e4 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:458    .bss.dat:00000000 dat
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:472    .bss.data_accel:00000000 data_accel
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:452    .bss.accel:00000000 accel
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:438    .bss.x_accel:00000000 x_accel
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:431    .bss.y_accel:00000000 y_accel
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:424    .bss.z_accel:00000000 z_accel
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:417    .bss.x_roll:00000000 x_roll
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:410    .bss.y_pitch:00000000 y_pitch
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:403    .bss.z_yaw:00000000 z_yaw
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:465    .bss.data_magnetic:00000000 data_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:445    .bss.magnetic:00000000 magnetic
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:375    .bss.x_magnetic:00000000 x_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:368    .bss.y_magnetic:00000000 y_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:361    .bss.z_magnetic:00000000 z_magnetic
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:396    .bss.x_north:00000000 x_north
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:389    .bss.y_east:00000000 y_east
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:382    .bss.z_down:00000000 z_down
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:358    .bss.z_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:365    .bss.y_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:372    .bss.x_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:379    .bss.z_down:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:386    .bss.y_east:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:393    .bss.x_north:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:400    .bss.z_yaw:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:407    .bss.y_pitch:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:414    .bss.x_roll:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:421    .bss.z_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:428    .bss.y_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:435    .bss.x_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:442    .bss.magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:449    .bss.accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:459    .bss.dat:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:462    .bss.data_magnetic:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:469    .bss.data_accel:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:479    .bss.adc_value:00000000 adc_value
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:476    .bss.adc_value:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:486    .bss.GlobalTickCount:00000000 GlobalTickCount
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:483    .bss.GlobalTickCount:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:492    .bss.adc_overrun_count:00000000 adc_overrun_count
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:493    .bss.adc_overrun_count:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:498    .bss.adc_conversion_complete:00000000 adc_conversion_complete
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:499    .bss.adc_conversion_complete:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:505    .bss.adcInter:00000000 adcInter
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:502    .bss.adcInter:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:512    .bss.adc_buf:00000000 adc_buf
+C:\Users\Asus\AppData\Local\Temp\cc416GKh.s:509    .bss.adc_buf:00000000 $d
+
+UNDEFINED SYMBOLS
+RCC_Init
+GPIO_Init
+SysTick_Init
+ADC_Init
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\cc416GKh.s 			page 12
+
+
+DMA_Init
+TIM_PWM_Init
+I2C_Init
+I2C_WriteByte
+I2C_ReadByte

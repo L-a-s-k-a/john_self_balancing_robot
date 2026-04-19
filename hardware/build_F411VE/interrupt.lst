@@ -1,0 +1,391 @@
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"interrupt.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/interrupt.c"
+  20              		.section	.text.SysTick_Handler,"ax",%progbits
+  21              		.align	1
+  22              		.global	SysTick_Handler
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	SysTick_Handler:
+  28              	.LFB130:
+   1:Core/Src/interrupt.c **** #include "interrupt.h"
+   2:Core/Src/interrupt.c **** 
+   3:Core/Src/interrupt.c **** uint16_t tick_delay_count, miiliseconds, tim3_count;
+   4:Core/Src/interrupt.c **** uint8_t FLAG_Delay;
+   5:Core/Src/interrupt.c **** 
+   6:Core/Src/interrupt.c **** void SysTick_Handler(void)
+   7:Core/Src/interrupt.c **** {
+  29              		.loc 1 7 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+   8:Core/Src/interrupt.c ****     GlobalTickCount++;
+  34              		.loc 1 8 5 view .LVU1
+  35              		.loc 1 8 20 is_stmt 0 view .LVU2
+  36 0000 054A     		ldr	r2, .L3
+  37 0002 1388     		ldrh	r3, [r2]
+  38 0004 0133     		adds	r3, r3, #1
+  39 0006 1380     		strh	r3, [r2]	@ movhi
+   9:Core/Src/interrupt.c ****     if (FLAG_Delay)
+  40              		.loc 1 9 5 is_stmt 1 view .LVU3
+  41              		.loc 1 9 9 is_stmt 0 view .LVU4
+  42 0008 044B     		ldr	r3, .L3+4
+  43 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  44              		.loc 1 9 8 view .LVU5
+  45 000c 1BB1     		cbz	r3, .L1
+  10:Core/Src/interrupt.c ****         tick_delay_count++;
+  46              		.loc 1 10 9 is_stmt 1 view .LVU6
+  47              		.loc 1 10 25 is_stmt 0 view .LVU7
+  48 000e 044A     		ldr	r2, .L3+8
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s 			page 2
+
+
+  49 0010 1388     		ldrh	r3, [r2]
+  50 0012 0133     		adds	r3, r3, #1
+  51 0014 1380     		strh	r3, [r2]	@ movhi
+  52              	.L1:
+  11:Core/Src/interrupt.c **** }
+  53              		.loc 1 11 1 view .LVU8
+  54 0016 7047     		bx	lr
+  55              	.L4:
+  56              		.align	2
+  57              	.L3:
+  58 0018 00000000 		.word	GlobalTickCount
+  59 001c 00000000 		.word	FLAG_Delay
+  60 0020 00000000 		.word	tick_delay_count
+  61              		.cfi_endproc
+  62              	.LFE130:
+  64              		.section	.text.ADC_IRQHandler,"ax",%progbits
+  65              		.align	1
+  66              		.global	ADC_IRQHandler
+  67              		.syntax unified
+  68              		.thumb
+  69              		.thumb_func
+  71              	ADC_IRQHandler:
+  72              	.LFB131:
+  12:Core/Src/interrupt.c **** 
+  13:Core/Src/interrupt.c **** void ADC_IRQHandler(void){
+  73              		.loc 1 13 26 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              		@ link register save eliminated.
+  14:Core/Src/interrupt.c ****     adcInter = ADC1->DR; 
+  78              		.loc 1 14 5 view .LVU10
+  79              		.loc 1 14 20 is_stmt 0 view .LVU11
+  80 0000 024B     		ldr	r3, .L6
+  81 0002 DB6C     		ldr	r3, [r3, #76]
+  82              		.loc 1 14 14 view .LVU12
+  83 0004 9BB2     		uxth	r3, r3
+  84 0006 024A     		ldr	r2, .L6+4
+  85 0008 1380     		strh	r3, [r2]	@ movhi
+  15:Core/Src/interrupt.c ****     // SET_BIT(ADC1->CR2, ADC_CR2_SWSTART);
+  16:Core/Src/interrupt.c **** }
+  86              		.loc 1 16 1 view .LVU13
+  87 000a 7047     		bx	lr
+  88              	.L7:
+  89              		.align	2
+  90              	.L6:
+  91 000c 00200140 		.word	1073815552
+  92 0010 00000000 		.word	adcInter
+  93              		.cfi_endproc
+  94              	.LFE131:
+  96              		.section	.text.DMA2_Stream0_IRQHandler,"ax",%progbits
+  97              		.align	1
+  98              		.global	DMA2_Stream0_IRQHandler
+  99              		.syntax unified
+ 100              		.thumb
+ 101              		.thumb_func
+ 103              	DMA2_Stream0_IRQHandler:
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s 			page 3
+
+
+ 104              	.LFB132:
+  17:Core/Src/interrupt.c **** 
+  18:Core/Src/interrupt.c **** void DMA2_Stream0_IRQHandler(void){
+ 105              		.loc 1 18 35 is_stmt 1 view -0
+ 106              		.cfi_startproc
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              		@ link register save eliminated.
+  19:Core/Src/interrupt.c ****     if (READ_BIT(DMA2->LISR, DMA_LISR_TCIF0))
+ 110              		.loc 1 19 5 view .LVU15
+ 111              		.loc 1 19 9 is_stmt 0 view .LVU16
+ 112 0000 0E4B     		ldr	r3, .L11
+ 113 0002 1B68     		ldr	r3, [r3]
+ 114              		.loc 1 19 8 view .LVU17
+ 115 0004 13F0200F 		tst	r3, #32
+ 116 0008 07D0     		beq	.L9
+  20:Core/Src/interrupt.c ****     {
+  21:Core/Src/interrupt.c ****         SET_BIT(DMA2->LIFCR, DMA_LIFCR_CTCIF0); // Очистка флага прерывания
+ 117              		.loc 1 21 9 is_stmt 1 view .LVU18
+ 118 000a 0C4A     		ldr	r2, .L11
+ 119 000c 9368     		ldr	r3, [r2, #8]
+ 120 000e 43F02003 		orr	r3, r3, #32
+ 121 0012 9360     		str	r3, [r2, #8]
+  22:Core/Src/interrupt.c ****         adc_conversion_complete = 1; // Установка флага готовности данн
+ 122              		.loc 1 22 9 view .LVU19
+ 123              		.loc 1 22 33 is_stmt 0 view .LVU20
+ 124 0014 0A4B     		ldr	r3, .L11+4
+ 125 0016 0122     		movs	r2, #1
+ 126 0018 1A70     		strb	r2, [r3]
+ 127              	.L9:
+  23:Core/Src/interrupt.c ****     }
+  24:Core/Src/interrupt.c ****     // Диагностика: проверка переполнения АЦП
+  25:Core/Src/interrupt.c ****     if (ADC1->SR & ADC_SR_OVR) {
+ 128              		.loc 1 25 5 is_stmt 1 view .LVU21
+ 129              		.loc 1 25 13 is_stmt 0 view .LVU22
+ 130 001a 0A4B     		ldr	r3, .L11+8
+ 131 001c 1B68     		ldr	r3, [r3]
+ 132              		.loc 1 25 8 view .LVU23
+ 133 001e 13F0200F 		tst	r3, #32
+ 134 0022 09D0     		beq	.L8
+  26:Core/Src/interrupt.c ****         adc_overrun_count++;
+ 135              		.loc 1 26 9 is_stmt 1 view .LVU24
+ 136              		.loc 1 26 26 is_stmt 0 view .LVU25
+ 137 0024 084A     		ldr	r2, .L11+12
+ 138 0026 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 139 0028 0133     		adds	r3, r3, #1
+ 140 002a DBB2     		uxtb	r3, r3
+ 141 002c 1370     		strb	r3, [r2]
+  27:Core/Src/interrupt.c ****         ADC1->SR &= ~ADC_SR_OVR; // Сбрасываем флаг
+ 142              		.loc 1 27 9 is_stmt 1 view .LVU26
+ 143              		.loc 1 27 13 is_stmt 0 view .LVU27
+ 144 002e 054A     		ldr	r2, .L11+8
+ 145 0030 1368     		ldr	r3, [r2]
+ 146              		.loc 1 27 18 view .LVU28
+ 147 0032 23F02003 		bic	r3, r3, #32
+ 148 0036 1360     		str	r3, [r2]
+ 149              	.L8:
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s 			page 4
+
+
+  28:Core/Src/interrupt.c ****     }
+  29:Core/Src/interrupt.c **** }
+ 150              		.loc 1 29 1 view .LVU29
+ 151 0038 7047     		bx	lr
+ 152              	.L12:
+ 153 003a 00BF     		.align	2
+ 154              	.L11:
+ 155 003c 00640240 		.word	1073898496
+ 156 0040 00000000 		.word	adc_conversion_complete
+ 157 0044 00200140 		.word	1073815552
+ 158 0048 00000000 		.word	adc_overrun_count
+ 159              		.cfi_endproc
+ 160              	.LFE132:
+ 162              		.section	.text.TIM3_IRQHandler,"ax",%progbits
+ 163              		.align	1
+ 164              		.global	TIM3_IRQHandler
+ 165              		.syntax unified
+ 166              		.thumb
+ 167              		.thumb_func
+ 169              	TIM3_IRQHandler:
+ 170              	.LFB133:
+  30:Core/Src/interrupt.c **** 
+  31:Core/Src/interrupt.c **** void TIM3_IRQHandler(void){
+ 171              		.loc 1 31 27 is_stmt 1 view -0
+ 172              		.cfi_startproc
+ 173              		@ args = 0, pretend = 0, frame = 0
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+ 175              		@ link register save eliminated.
+  32:Core/Src/interrupt.c ****     if (READ_BIT(TIM3->SR, TIM_SR_UIF))
+ 176              		.loc 1 32 5 view .LVU31
+ 177              		.loc 1 32 9 is_stmt 0 view .LVU32
+ 178 0000 0C4B     		ldr	r3, .L15
+ 179 0002 1B69     		ldr	r3, [r3, #16]
+ 180              		.loc 1 32 8 view .LVU33
+ 181 0004 13F0010F 		tst	r3, #1
+ 182 0008 13D0     		beq	.L13
+  33:Core/Src/interrupt.c ****     {
+  34:Core/Src/interrupt.c ****         TIM3->SR &= ~TIM_SR_UIF; // Очистка флага прерывания
+ 183              		.loc 1 34 9 is_stmt 1 view .LVU34
+ 184              		.loc 1 34 13 is_stmt 0 view .LVU35
+ 185 000a 0A4A     		ldr	r2, .L15
+ 186 000c 1369     		ldr	r3, [r2, #16]
+ 187              		.loc 1 34 18 view .LVU36
+ 188 000e 23F00103 		bic	r3, r3, #1
+ 189 0012 1361     		str	r3, [r2, #16]
+  35:Core/Src/interrupt.c **** 
+  36:Core/Src/interrupt.c ****         tim3_count++;
+ 190              		.loc 1 36 9 is_stmt 1 view .LVU37
+ 191              		.loc 1 36 19 is_stmt 0 view .LVU38
+ 192 0014 084A     		ldr	r2, .L15+4
+ 193 0016 1388     		ldrh	r3, [r2]
+ 194 0018 0133     		adds	r3, r3, #1
+ 195 001a 9BB2     		uxth	r3, r3
+ 196 001c 1380     		strh	r3, [r2]	@ movhi
+  37:Core/Src/interrupt.c ****         if(tim3_count >= 1000){
+ 197              		.loc 1 37 9 is_stmt 1 view .LVU39
+ 198              		.loc 1 37 11 is_stmt 0 view .LVU40
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s 			page 5
+
+
+ 199 001e B3F57A7F 		cmp	r3, #1000
+ 200 0022 06D3     		bcc	.L13
+  38:Core/Src/interrupt.c ****             tim3_count = 0;
+ 201              		.loc 1 38 13 is_stmt 1 view .LVU41
+ 202              		.loc 1 38 24 is_stmt 0 view .LVU42
+ 203 0024 1346     		mov	r3, r2
+ 204 0026 0022     		movs	r2, #0
+ 205 0028 1A80     		strh	r2, [r3]	@ movhi
+  39:Core/Src/interrupt.c ****             miiliseconds++;
+ 206              		.loc 1 39 13 is_stmt 1 view .LVU43
+ 207              		.loc 1 39 25 is_stmt 0 view .LVU44
+ 208 002a 044A     		ldr	r2, .L15+8
+ 209 002c 1388     		ldrh	r3, [r2]
+ 210 002e 0133     		adds	r3, r3, #1
+ 211 0030 1380     		strh	r3, [r2]	@ movhi
+ 212              	.L13:
+  40:Core/Src/interrupt.c ****         }
+  41:Core/Src/interrupt.c ****     }
+  42:Core/Src/interrupt.c **** }
+ 213              		.loc 1 42 1 view .LVU45
+ 214 0032 7047     		bx	lr
+ 215              	.L16:
+ 216              		.align	2
+ 217              	.L15:
+ 218 0034 00040040 		.word	1073742848
+ 219 0038 00000000 		.word	tim3_count
+ 220 003c 00000000 		.word	miiliseconds
+ 221              		.cfi_endproc
+ 222              	.LFE133:
+ 224              		.section	.text.delay,"ax",%progbits
+ 225              		.align	1
+ 226              		.global	delay
+ 227              		.syntax unified
+ 228              		.thumb
+ 229              		.thumb_func
+ 231              	delay:
+ 232              	.LVL0:
+ 233              	.LFB134:
+  43:Core/Src/interrupt.c **** 
+  44:Core/Src/interrupt.c **** void delay(int del)
+  45:Core/Src/interrupt.c **** {
+ 234              		.loc 1 45 1 is_stmt 1 view -0
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238              		@ link register save eliminated.
+  46:Core/Src/interrupt.c ****     FLAG_Delay = 1;
+ 239              		.loc 1 46 5 view .LVU47
+ 240              		.loc 1 46 16 is_stmt 0 view .LVU48
+ 241 0000 064B     		ldr	r3, .L19
+ 242 0002 0122     		movs	r2, #1
+ 243 0004 1A70     		strb	r2, [r3]
+  47:Core/Src/interrupt.c ****     while (tick_delay_count < del)
+ 244              		.loc 1 47 5 is_stmt 1 view .LVU49
+ 245              	.L18:
+  48:Core/Src/interrupt.c ****     {
+  49:Core/Src/interrupt.c ****     }
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s 			page 6
+
+
+ 246              		.loc 1 49 5 view .LVU50
+  47:Core/Src/interrupt.c ****     while (tick_delay_count < del)
+ 247              		.loc 1 47 29 discriminator 1 view .LVU51
+ 248 0006 064B     		ldr	r3, .L19+4
+ 249 0008 1B88     		ldrh	r3, [r3]
+ 250 000a 8342     		cmp	r3, r0
+ 251 000c FBDB     		blt	.L18
+  50:Core/Src/interrupt.c ****     tick_delay_count = 0;
+ 252              		.loc 1 50 5 view .LVU52
+ 253              		.loc 1 50 22 is_stmt 0 view .LVU53
+ 254 000e 0023     		movs	r3, #0
+ 255 0010 034A     		ldr	r2, .L19+4
+ 256 0012 1380     		strh	r3, [r2]	@ movhi
+  51:Core/Src/interrupt.c ****     FLAG_Delay = 0;
+ 257              		.loc 1 51 5 is_stmt 1 view .LVU54
+ 258              		.loc 1 51 16 is_stmt 0 view .LVU55
+ 259 0014 014A     		ldr	r2, .L19
+ 260 0016 1370     		strb	r3, [r2]
+  52:Core/Src/interrupt.c **** }
+ 261              		.loc 1 52 1 view .LVU56
+ 262 0018 7047     		bx	lr
+ 263              	.L20:
+ 264 001a 00BF     		.align	2
+ 265              	.L19:
+ 266 001c 00000000 		.word	FLAG_Delay
+ 267 0020 00000000 		.word	tick_delay_count
+ 268              		.cfi_endproc
+ 269              	.LFE134:
+ 271              		.global	FLAG_Delay
+ 272              		.section	.bss.FLAG_Delay,"aw",%nobits
+ 275              	FLAG_Delay:
+ 276 0000 00       		.space	1
+ 277              		.global	tim3_count
+ 278              		.section	.bss.tim3_count,"aw",%nobits
+ 279              		.align	1
+ 282              	tim3_count:
+ 283 0000 0000     		.space	2
+ 284              		.global	miiliseconds
+ 285              		.section	.bss.miiliseconds,"aw",%nobits
+ 286              		.align	1
+ 289              	miiliseconds:
+ 290 0000 0000     		.space	2
+ 291              		.global	tick_delay_count
+ 292              		.section	.bss.tick_delay_count,"aw",%nobits
+ 293              		.align	1
+ 296              	tick_delay_count:
+ 297 0000 0000     		.space	2
+ 298              		.text
+ 299              	.Letext0:
+ 300              		.file 2 "C:/Programm/tools/xpack-arm-none-eabi-gcc-14.2.1-1.1/arm-none-eabi/include/machine/_defau
+ 301              		.file 3 "C:/Programm/tools/xpack-arm-none-eabi-gcc-14.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
+ 302              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h"
+ 303              		.file 5 "Core/Inc/init.h"
+ 304              		.file 6 "Core/Inc/interrupt.h"
+ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 interrupt.c
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:21     .text.SysTick_Handler:00000000 $t
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:27     .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:58     .text.SysTick_Handler:00000018 $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:275    .bss.FLAG_Delay:00000000 FLAG_Delay
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:296    .bss.tick_delay_count:00000000 tick_delay_count
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:65     .text.ADC_IRQHandler:00000000 $t
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:71     .text.ADC_IRQHandler:00000000 ADC_IRQHandler
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:91     .text.ADC_IRQHandler:0000000c $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:97     .text.DMA2_Stream0_IRQHandler:00000000 $t
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:103    .text.DMA2_Stream0_IRQHandler:00000000 DMA2_Stream0_IRQHandler
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:155    .text.DMA2_Stream0_IRQHandler:0000003c $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:163    .text.TIM3_IRQHandler:00000000 $t
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:169    .text.TIM3_IRQHandler:00000000 TIM3_IRQHandler
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:218    .text.TIM3_IRQHandler:00000034 $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:282    .bss.tim3_count:00000000 tim3_count
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:289    .bss.miiliseconds:00000000 miiliseconds
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:225    .text.delay:00000000 $t
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:231    .text.delay:00000000 delay
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:266    .text.delay:0000001c $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:276    .bss.FLAG_Delay:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:279    .bss.tim3_count:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:286    .bss.miiliseconds:00000000 $d
+C:\Users\Asus\AppData\Local\Temp\ccuoKuu9.s:293    .bss.tick_delay_count:00000000 $d
+
+UNDEFINED SYMBOLS
+GlobalTickCount
+adcInter
+adc_conversion_complete
+adc_overrun_count

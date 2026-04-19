@@ -7,17 +7,17 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceFolder}",
-            "executable": "./Execution_Level/Current_Sens/build_F407VE/STM32F407VE.elf",
+            "executable": "./hardware/build_F411VE/STM32F411VE.elf",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "servertype": "openocd",
-            "device": "STM32F407VE",
+            "device": "STM32F411VE",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f4x.cfg"
             ],
-            "svdFile": "./Execution_Level/Current_Sens/STMDevices/STM32F407xx/STM32F407.svd"
+            "svdFile": "./hardware/STMDevices/STM32F411xe/STM32F411.svd"
         }
     ]
 }

@@ -182,3 +182,21 @@ void DMA_Init(void){
     NVIC_SetPriority(DMA2_Stream0_IRQn, 1);
 }
 
+void I2C_Init(void){
+    RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+
+    GPIOB->MODER |= GPIO_MODER_MODER6_1 | GPIO_MODER_MODER9_1;
+    GPIOB->OTYPER |= GPIO_OTYPER_OT6 | GPIO_OTYPER_OT9;
+    GPIOB->OSPEEDR |= GPIO_OSPEEDR_OSPEED6 | GPIO_OSPEEDR_OSPEED9;
+    GPIOB->PUPDR |= GPIO_PUPDR_PUPD6_0 | GPIO_PUPDR_PUPD9_0;
+    GPIOB->AFR[0] |= GPIO_AFRL_AFSEL6_2; 
+    GPIOB->AFR[1] |= GPIO_AFRH_AFSEL9_2;
+
+    I2C1->CR2 |= I2C_CR2_FREQ_4 | I2C_CR2_FREQ_5;
+    I2C1->CCR |= 240; // Для Standard Mode (100 кГц) при 48 МГц
+    I2C1->TRISE |= 49; // 1000 нс ((1000 * 48) / 1000) + 1 = 49 для Standard Mode (100 кГц)
+    // I2C1->CCR |= I2C_CCR_FS | 40; // Для Fast Mode (400 кГц) при 48 МГц
+    // I2C1->TRISE |= 15; // Для Fast Mode(400 кГц) 300 нс ((300 * 48) / 1000) + 1 = 14.4, округляем до 15 
+    I2C1->CR1 |= I2C_CR1_PE; // Включение I2C1
+}

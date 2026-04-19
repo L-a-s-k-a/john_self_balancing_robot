@@ -18,5 +18,6 @@ void GPIO_Init(void);
 void TIM_PWM_Init(void);
 void ADC_Init(void);
 void DMA_Init(void);
+void I2C_Init(void);
 
 #endif

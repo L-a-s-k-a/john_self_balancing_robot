@@ -137,6 +137,7 @@ $(SYS) \
 Core/Src/main.c \
 Core/Src/init.c \
 Core/Src/interrupt.c \
+Core/Src/i2c.c \
 
 # ASM sources
 ASM_SOURCES =  \
@@ -257,7 +258,7 @@ $(BUILD_DIR)/$(TARGET_SERIES)$(TARGET_VERSION).elf: $(OBJECTS) Makefile
 	@echo "-----------------------------------------------------"	
 
 $(BUILD_DIR):
-	@mkdir $@
+	@"mkdir" $@
 
 #######################################
 # clean up
