@@ -138,6 +138,7 @@ Core/Src/main.c \
 Core/Src/init.c \
 Core/Src/interrupt.c \
 Core/Src/i2c.c \
+Core/Src/lsm303dlhc.c \
 
 # ASM sources
 ASM_SOURCES =  \

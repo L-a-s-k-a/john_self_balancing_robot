@@ -6,5 +6,6 @@
 
 void I2C_WriteByte(uint8_t slave_address, uint8_t register_address, uint8_t data);
 void I2C_ReadByte(uint8_t slave_address, uint8_t register_address, uint8_t *data);
+void I2C_ReadMultiple(uint8_t slave_address, uint8_t register_address, uint8_t *pBuffer, uint8_t numBytes);
 
 #endif // I2C_H

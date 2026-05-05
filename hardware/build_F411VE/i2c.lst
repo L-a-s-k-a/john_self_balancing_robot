@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
   44 0004 9B69     		ldr	r3, [r3, #24]
   45              		.loc 1 12 11 discriminator 1 view .LVU4
   46 0006 13F0020F 		tst	r3, #2
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 2
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 2
 
 
   47 000a FAD1     		bne	.L2
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
   88              		.loc 1 25 12 discriminator 1 view .LVU23
   89              		.loc 1 25 18 is_stmt 0 discriminator 1 view .LVU24
   90 0036 0C4B     		ldr	r3, .L9
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 3
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 3
 
 
   91 0038 5B69     		ldr	r3, [r3, #20]
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
  136              	.LFE130:
  138              		.section	.text.I2C_ReadByte,"ax",%progbits
  139              		.align	1
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 4
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 4
 
 
  140              		.global	I2C_ReadByte
@@ -238,10 +238,10 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
  181 001e FAD0     		beq	.L13
   49:Core/Src/i2c.c **** 
   50:Core/Src/i2c.c ****     // Отправка адреса устройства с битом записи (0)
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 5
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 5
 
 
-  51:Core/Src/i2c.c ****     I2C1->DR = (slave_address << 1) | 0;      // Сдвигать адрес влево не над
+  51:Core/Src/i2c.c ****     I2C1->DR = (slave_address << 1) | 0; // Сдвиг адреса влево и установк�
  182              		.loc 1 51 5 is_stmt 1 view .LVU52
  183              		.loc 1 51 37 is_stmt 0 view .LVU53
  184 0020 4300     		lsls	r3, r0, #1
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
  225 004c 0B68     		ldr	r3, [r1]
  226              		.loc 1 61 15 view .LVU72
  227 004e 43F48073 		orr	r3, r3, #256
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 6
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 6
 
 
  228 0052 0B60     		str	r3, [r1]
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
  272 0082 13F0400F 		tst	r3, #64
  273 0086 FAD0     		beq	.L19
   72:Core/Src/i2c.c **** 
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 7
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 7
 
 
   73:Core/Src/i2c.c ****     *data = I2C1->DR;                     // Чтение данных из регистра DR
@@ -385,7 +385,7 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
  290              		.loc 1 77 15 view .LVU101
  291 0098 42F48062 		orr	r2, r2, #1024
  292 009c 1A60     		str	r2, [r3]
-  78:Core/Src/i2c.c ****  }...
+  78:Core/Src/i2c.c ****  }
  293              		.loc 1 78 2 view .LVU102
  294 009e 5DF8044B 		ldr	r4, [sp], #4
  295              	.LCFI3:
@@ -398,21 +398,316 @@ ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 1
  302 00a4 00540040 		.word	1073763328
  303              		.cfi_endproc
  304              	.LFE131:
- 306              		.text
- 307              	.Letext0:
- 308              		.file 2 "C:/Programm/tools/xpack-arm-none-eabi-gcc-14.2.1-1.1/arm-none-eabi/include/machine/_defau
- 309              		.file 3 "C:/Programm/tools/xpack-arm-none-eabi-gcc-14.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
- 310              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h"
-ARM GAS  C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s 			page 8
+ 306              		.section	.text.I2C_ReadMultiple,"ax",%progbits
+ 307              		.align	1
+ 308              		.global	I2C_ReadMultiple
+ 309              		.syntax unified
+ 310              		.thumb
+ 311              		.thumb_func
+ 313              	I2C_ReadMultiple:
+ 314              	.LVL7:
+ 315              	.LFB132:
+  79:Core/Src/i2c.c **** 
+  80:Core/Src/i2c.c ****  /**
+  81:Core/Src/i2c.c ****   * @brief  Чтение нескольких байт из последовательных рег
+  82:Core/Src/i2c.c ****   * @param  slave_address: 7-битный адрес устройства (например, 0x32 �
+  83:Core/Src/i2c.c ****   * @param  register_address:    Адрес первого регистра для чтения
+  84:Core/Src/i2c.c ****   * @param  pBuffer:    Указатель на буфер приёма данных
+  85:Core/Src/i2c.c ****   * @param  numBytes:   Количество байт для чтения (максимум 255)
+  86:Core/Src/i2c.c ****   */
+  87:Core/Src/i2c.c **** void I2C_ReadMultiple(uint8_t slave_address, uint8_t register_address, uint8_t *pBuffer, uint8_t nu
+ 316              		.loc 1 87 108 is_stmt 1 view -0
+ 317              		.cfi_startproc
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 8
+
+
+ 318              		@ args = 0, pretend = 0, frame = 0
+ 319              		@ frame_needed = 0, uses_anonymous_args = 0
+ 320              		@ link register save eliminated.
+ 321              		.loc 1 87 108 is_stmt 0 view .LVU104
+ 322 0000 30B4     		push	{r4, r5}
+ 323              	.LCFI4:
+ 324              		.cfi_def_cfa_offset 8
+ 325              		.cfi_offset 4, -8
+ 326              		.cfi_offset 5, -4
+ 327 0002 0C46     		mov	r4, r1
+  88:Core/Src/i2c.c ****     // Ожидание освобождения шины
+  89:Core/Src/i2c.c ****     while (I2C1->SR2 & I2C_SR2_BUSY);
+ 328              		.loc 1 89 5 is_stmt 1 view .LVU105
+ 329              	.LVL8:
+ 330              	.L24:
+ 331              		.loc 1 89 12 discriminator 1 view .LVU106
+ 332              		.loc 1 89 16 is_stmt 0 discriminator 1 view .LVU107
+ 333 0004 3149     		ldr	r1, .L39
+ 334 0006 8969     		ldr	r1, [r1, #24]
+ 335              		.loc 1 89 12 discriminator 1 view .LVU108
+ 336 0008 11F0020F 		tst	r1, #2
+ 337 000c FAD1     		bne	.L24
+  90:Core/Src/i2c.c **** 
+  91:Core/Src/i2c.c ****     // ---- 1. START + отправка адреса (запись) ----
+  92:Core/Src/i2c.c ****     I2C1->CR1 |= I2C_CR1_START;
+ 338              		.loc 1 92 5 is_stmt 1 view .LVU109
+ 339              		.loc 1 92 9 is_stmt 0 view .LVU110
+ 340 000e 2F4D     		ldr	r5, .L39
+ 341 0010 2968     		ldr	r1, [r5]
+ 342              		.loc 1 92 15 view .LVU111
+ 343 0012 41F48071 		orr	r1, r1, #256
+ 344 0016 2960     		str	r1, [r5]
+  93:Core/Src/i2c.c ****     while (!(I2C1->SR1 & I2C_SR1_SB));          // Ждём START
+ 345              		.loc 1 93 5 is_stmt 1 view .LVU112
+ 346              	.L25:
+ 347              		.loc 1 93 12 discriminator 1 view .LVU113
+ 348              		.loc 1 93 18 is_stmt 0 discriminator 1 view .LVU114
+ 349 0018 2C49     		ldr	r1, .L39
+ 350 001a 4969     		ldr	r1, [r1, #20]
+ 351              		.loc 1 93 12 discriminator 1 view .LVU115
+ 352 001c 11F0010F 		tst	r1, #1
+ 353 0020 FAD0     		beq	.L25
+  94:Core/Src/i2c.c **** 
+  95:Core/Src/i2c.c ****     I2C1->DR = (slave_address << 1);            // Адрес в режиме записи
+ 354              		.loc 1 95 5 is_stmt 1 view .LVU116
+ 355              		.loc 1 95 31 is_stmt 0 view .LVU117
+ 356 0022 4100     		lsls	r1, r0, #1
+ 357              		.loc 1 95 14 view .LVU118
+ 358 0024 294D     		ldr	r5, .L39
+ 359 0026 2961     		str	r1, [r5, #16]
+  96:Core/Src/i2c.c ****     while (!(I2C1->SR1 & I2C_SR1_ADDR));        // Ждём подтверждения адреса
+ 360              		.loc 1 96 5 is_stmt 1 view .LVU119
+ 361              	.L26:
+ 362              		.loc 1 96 12 discriminator 1 view .LVU120
+ 363              		.loc 1 96 18 is_stmt 0 discriminator 1 view .LVU121
+ 364 0028 2849     		ldr	r1, .L39
+ 365 002a 4969     		ldr	r1, [r1, #20]
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 9
+
+
+ 366              		.loc 1 96 12 discriminator 1 view .LVU122
+ 367 002c 11F0020F 		tst	r1, #2
+ 368 0030 FAD0     		beq	.L26
+  97:Core/Src/i2c.c ****     (void)I2C1->SR2;                            // Очистка флага ADDR чтением SR
+ 369              		.loc 1 97 5 is_stmt 1 view .LVU123
+ 370 0032 2649     		ldr	r1, .L39
+ 371 0034 8D69     		ldr	r5, [r1, #24]
+  98:Core/Src/i2c.c **** 
+  99:Core/Src/i2c.c ****     // ---- 2. Отправка адреса регистра ----
+ 100:Core/Src/i2c.c ****     I2C1->DR = register_address;
+ 372              		.loc 1 100 5 view .LVU124
+ 373              		.loc 1 100 14 is_stmt 0 view .LVU125
+ 374 0036 0C61     		str	r4, [r1, #16]
+ 101:Core/Src/i2c.c ****     while (!(I2C1->SR1 & I2C_SR1_TXE));         // Данные отправлены в сдвиг�
+ 375              		.loc 1 101 5 is_stmt 1 view .LVU126
+ 376              	.L27:
+ 377              		.loc 1 101 12 discriminator 1 view .LVU127
+ 378              		.loc 1 101 18 is_stmt 0 discriminator 1 view .LVU128
+ 379 0038 2449     		ldr	r1, .L39
+ 380 003a 4969     		ldr	r1, [r1, #20]
+ 381              		.loc 1 101 12 discriminator 1 view .LVU129
+ 382 003c 11F0800F 		tst	r1, #128
+ 383 0040 FAD0     		beq	.L27
+ 384              	.L28:
+ 102:Core/Src/i2c.c ****     while (!(I2C1->SR1 & I2C_SR1_BTF));         // Ждём завершения отправки
+ 385              		.loc 1 102 12 is_stmt 1 discriminator 1 view .LVU130
+ 386              		.loc 1 102 18 is_stmt 0 discriminator 1 view .LVU131
+ 387 0042 2249     		ldr	r1, .L39
+ 388 0044 4969     		ldr	r1, [r1, #20]
+ 389              		.loc 1 102 12 discriminator 1 view .LVU132
+ 390 0046 11F0040F 		tst	r1, #4
+ 391 004a FAD0     		beq	.L28
+ 103:Core/Src/i2c.c **** 
+ 104:Core/Src/i2c.c ****     // ---- 3. Повторный START + адрес (чтение) ----
+ 105:Core/Src/i2c.c ****     I2C1->CR1 |= I2C_CR1_START;
+ 392              		.loc 1 105 5 is_stmt 1 view .LVU133
+ 393              		.loc 1 105 9 is_stmt 0 view .LVU134
+ 394 004c 1F4C     		ldr	r4, .L39
+ 395              	.LVL9:
+ 396              		.loc 1 105 9 view .LVU135
+ 397 004e 2168     		ldr	r1, [r4]
+ 398              		.loc 1 105 15 view .LVU136
+ 399 0050 41F48071 		orr	r1, r1, #256
+ 400 0054 2160     		str	r1, [r4]
+ 401              	.LVL10:
+ 106:Core/Src/i2c.c ****     while (!(I2C1->SR1 & I2C_SR1_SB));          // Ждём повторного START
+ 402              		.loc 1 106 5 is_stmt 1 view .LVU137
+ 403              	.L29:
+ 404              		.loc 1 106 12 discriminator 1 view .LVU138
+ 405              		.loc 1 106 18 is_stmt 0 discriminator 1 view .LVU139
+ 406 0056 1D49     		ldr	r1, .L39
+ 407 0058 4969     		ldr	r1, [r1, #20]
+ 408              		.loc 1 106 12 discriminator 1 view .LVU140
+ 409 005a 11F0010F 		tst	r1, #1
+ 410 005e FAD0     		beq	.L29
+ 107:Core/Src/i2c.c **** 
+ 108:Core/Src/i2c.c ****     I2C1->DR = (slave_address << 1) | 0x01;     // Адрес в режиме чтения
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 10
+
+
+ 411              		.loc 1 108 5 is_stmt 1 view .LVU141
+ 412              		.loc 1 108 31 is_stmt 0 view .LVU142
+ 413 0060 4000     		lsls	r0, r0, #1
+ 414              	.LVL11:
+ 415              		.loc 1 108 37 view .LVU143
+ 416 0062 40F00100 		orr	r0, r0, #1
+ 417              		.loc 1 108 14 view .LVU144
+ 418 0066 1949     		ldr	r1, .L39
+ 419 0068 0861     		str	r0, [r1, #16]
+ 109:Core/Src/i2c.c ****     while (!(I2C1->SR1 & I2C_SR1_ADDR));        // Ждём подтверждения адреса
+ 420              		.loc 1 109 5 is_stmt 1 view .LVU145
+ 421              	.L30:
+ 422              		.loc 1 109 12 discriminator 1 view .LVU146
+ 423              		.loc 1 109 18 is_stmt 0 discriminator 1 view .LVU147
+ 424 006a 1849     		ldr	r1, .L39
+ 425 006c 4969     		ldr	r1, [r1, #20]
+ 426              		.loc 1 109 12 discriminator 1 view .LVU148
+ 427 006e 11F0020F 		tst	r1, #2
+ 428 0072 FAD0     		beq	.L30
+ 110:Core/Src/i2c.c ****     (void)I2C1->SR2;                            // Очистка флага ADDR
+ 429              		.loc 1 110 5 is_stmt 1 view .LVU149
+ 430 0074 1549     		ldr	r1, .L39
+ 431 0076 8969     		ldr	r1, [r1, #24]
+ 111:Core/Src/i2c.c **** 
+ 112:Core/Src/i2c.c ****     // ---- 4. Чтение numBytes байт ----
+ 113:Core/Src/i2c.c ****     for (uint8_t i = 0; i < numBytes; i++) {
+ 432              		.loc 1 113 5 view .LVU150
+ 433              	.LBB2:
+ 434              		.loc 1 113 10 view .LVU151
+ 435              	.LVL12:
+ 436              		.loc 1 113 18 is_stmt 0 view .LVU152
+ 437 0078 0020     		movs	r0, #0
+ 438              		.loc 1 113 5 view .LVU153
+ 439 007a 12E0     		b	.L31
+ 440              	.LVL13:
+ 441              	.L38:
+ 114:Core/Src/i2c.c ****         // Для последнего байта отключаем ACK и генерируем ST
+ 115:Core/Src/i2c.c ****         if (i == numBytes - 1) {
+ 116:Core/Src/i2c.c ****             I2C1->CR1 &= ~I2C_CR1_ACK;          // Отключаем подтверждение (N
+ 442              		.loc 1 116 13 is_stmt 1 view .LVU154
+ 443              		.loc 1 116 17 is_stmt 0 view .LVU155
+ 444 007c 134C     		ldr	r4, .L39
+ 445 007e 2168     		ldr	r1, [r4]
+ 446              		.loc 1 116 23 view .LVU156
+ 447 0080 21F48061 		bic	r1, r1, #1024
+ 448 0084 2160     		str	r1, [r4]
+ 117:Core/Src/i2c.c ****             while (!(I2C1->SR1 & I2C_SR1_RXNE));// Ждём приёма байта
+ 449              		.loc 1 117 13 is_stmt 1 view .LVU157
+ 450              	.L33:
+ 451              		.loc 1 117 20 discriminator 1 view .LVU158
+ 452              		.loc 1 117 26 is_stmt 0 discriminator 1 view .LVU159
+ 453 0086 1149     		ldr	r1, .L39
+ 454 0088 4969     		ldr	r1, [r1, #20]
+ 455              		.loc 1 117 20 discriminator 1 view .LVU160
+ 456 008a 11F0400F 		tst	r1, #64
+ 457 008e FAD0     		beq	.L33
+ 118:Core/Src/i2c.c ****             pBuffer[i] = I2C1->DR;
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 11
+
+
+ 458              		.loc 1 118 13 is_stmt 1 view .LVU161
+ 459              		.loc 1 118 30 is_stmt 0 view .LVU162
+ 460 0090 0E49     		ldr	r1, .L39
+ 461 0092 0C69     		ldr	r4, [r1, #16]
+ 462              		.loc 1 118 24 view .LVU163
+ 463 0094 1454     		strb	r4, [r2, r0]
+ 119:Core/Src/i2c.c ****             I2C1->CR1 |= I2C_CR1_STOP;          // Генерируем STOP
+ 464              		.loc 1 119 13 is_stmt 1 view .LVU164
+ 465              		.loc 1 119 17 is_stmt 0 view .LVU165
+ 466 0096 0C68     		ldr	r4, [r1]
+ 467              		.loc 1 119 23 view .LVU166
+ 468 0098 44F40074 		orr	r4, r4, #512
+ 469 009c 0C60     		str	r4, [r1]
+ 470              	.L34:
+ 113:Core/Src/i2c.c ****         // Для последнего байта отключаем ACK и генерируем ST
+ 471              		.loc 1 113 40 is_stmt 1 discriminator 2 view .LVU167
+ 472 009e 0130     		adds	r0, r0, #1
+ 473              	.LVL14:
+ 113:Core/Src/i2c.c ****         // Для последнего байта отключаем ACK и генерируем ST
+ 474              		.loc 1 113 40 is_stmt 0 discriminator 2 view .LVU168
+ 475 00a0 C0B2     		uxtb	r0, r0
+ 476              	.LVL15:
+ 477              	.L31:
+ 113:Core/Src/i2c.c ****         // Для последнего байта отключаем ACK и генерируем ST
+ 478              		.loc 1 113 27 is_stmt 1 discriminator 1 view .LVU169
+ 479 00a2 9842     		cmp	r0, r3
+ 480 00a4 0BD2     		bcs	.L37
+ 115:Core/Src/i2c.c ****             I2C1->CR1 &= ~I2C_CR1_ACK;          // Отключаем подтверждение (N
+ 481              		.loc 1 115 9 view .LVU170
+ 115:Core/Src/i2c.c ****             I2C1->CR1 &= ~I2C_CR1_ACK;          // Отключаем подтверждение (N
+ 482              		.loc 1 115 27 is_stmt 0 view .LVU171
+ 483 00a6 591E     		subs	r1, r3, #1
+ 115:Core/Src/i2c.c ****             I2C1->CR1 &= ~I2C_CR1_ACK;          // Отключаем подтверждение (N
+ 484              		.loc 1 115 12 view .LVU172
+ 485 00a8 8842     		cmp	r0, r1
+ 486 00aa E7D0     		beq	.L38
+ 487              	.L32:
+ 120:Core/Src/i2c.c ****         } else {
+ 121:Core/Src/i2c.c ****             while (!(I2C1->SR1 & I2C_SR1_RXNE));// Ждём приёма байта
+ 488              		.loc 1 121 20 is_stmt 1 discriminator 1 view .LVU173
+ 489              		.loc 1 121 26 is_stmt 0 discriminator 1 view .LVU174
+ 490 00ac 0749     		ldr	r1, .L39
+ 491 00ae 4969     		ldr	r1, [r1, #20]
+ 492              		.loc 1 121 20 discriminator 1 view .LVU175
+ 493 00b0 11F0400F 		tst	r1, #64
+ 494 00b4 FAD0     		beq	.L32
+ 122:Core/Src/i2c.c ****             pBuffer[i] = I2C1->DR;
+ 495              		.loc 1 122 13 is_stmt 1 view .LVU176
+ 496              		.loc 1 122 30 is_stmt 0 view .LVU177
+ 497 00b6 0549     		ldr	r1, .L39
+ 498 00b8 0969     		ldr	r1, [r1, #16]
+ 499              		.loc 1 122 24 view .LVU178
+ 500 00ba 1154     		strb	r1, [r2, r0]
+ 501 00bc EFE7     		b	.L34
+ 502              	.L37:
+ 503              		.loc 1 122 24 view .LVU179
+ 504              	.LBE2:
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 12
+
+
+ 123:Core/Src/i2c.c ****         }
+ 124:Core/Src/i2c.c ****     }
+ 125:Core/Src/i2c.c **** 
+ 126:Core/Src/i2c.c ****     // Восстанавливаем ACK для будущих транзакций
+ 127:Core/Src/i2c.c ****     I2C1->CR1 |= I2C_CR1_ACK;
+ 505              		.loc 1 127 5 is_stmt 1 view .LVU180
+ 506              		.loc 1 127 9 is_stmt 0 view .LVU181
+ 507 00be 034A     		ldr	r2, .L39
+ 508              	.LVL16:
+ 509              		.loc 1 127 9 view .LVU182
+ 510 00c0 1368     		ldr	r3, [r2]
+ 511              	.LVL17:
+ 512              		.loc 1 127 15 view .LVU183
+ 513 00c2 43F48063 		orr	r3, r3, #1024
+ 514 00c6 1360     		str	r3, [r2]
+ 128:Core/Src/i2c.c **** }...
+ 515              		.loc 1 128 1 view .LVU184
+ 516 00c8 30BC     		pop	{r4, r5}
+ 517              	.LCFI5:
+ 518              		.cfi_restore 5
+ 519              		.cfi_restore 4
+ 520              		.cfi_def_cfa_offset 0
+ 521 00ca 7047     		bx	lr
+ 522              	.L40:
+ 523              		.align	2
+ 524              	.L39:
+ 525 00cc 00540040 		.word	1073763328
+ 526              		.cfi_endproc
+ 527              	.LFE132:
+ 529              		.text
+ 530              	.Letext0:
+ 531              		.file 2 "C:/Programs/Tools/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/machine/_defau
+ 532              		.file 3 "C:/Programs/Tools/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
+ 533              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h"
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s 			page 13
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 i2c.c
-C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s:21     .text.I2C_WriteByte:00000000 $t
-C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s:27     .text.I2C_WriteByte:00000000 I2C_WriteByte
-C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s:134    .text.I2C_WriteByte:00000068 $d
-C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s:139    .text.I2C_ReadByte:00000000 $t
-C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s:145    .text.I2C_ReadByte:00000000 I2C_ReadByte
-C:\Users\Asus\AppData\Local\Temp\ccPXcsTd.s:302    .text.I2C_ReadByte:000000a4 $d
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:21     .text.I2C_WriteByte:00000000 $t
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:27     .text.I2C_WriteByte:00000000 I2C_WriteByte
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:134    .text.I2C_WriteByte:00000068 $d
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:139    .text.I2C_ReadByte:00000000 $t
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:145    .text.I2C_ReadByte:00000000 I2C_ReadByte
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:302    .text.I2C_ReadByte:000000a4 $d
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:307    .text.I2C_ReadMultiple:00000000 $t
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:313    .text.I2C_ReadMultiple:00000000 I2C_ReadMultiple
+C:\Users\nip6\AppData\Local\Temp\ccpr4pix.s:525    .text.I2C_ReadMultiple:000000cc $d
 
 NO UNDEFINED SYMBOLS

@@ -1,12 +1,13 @@
-build_F411VE/main.o: Core/Src/main.c Core/Inc/interrupt.h Core/Inc/init.h \
+build_F411VE/lsm303dlhc.o: Core/Src/lsm303dlhc.c Core/Inc/lsm303dlhc.h \
+ Core/Inc/i2c.h Core/Inc/init.h \
  Core/Inc/../../CMSIS/Devices/STM32F4xx/Inc/stm32f4xx.h \
  CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h \
  CMSIS/Include/core_cm4.h CMSIS/Include/cmsis_version.h \
  CMSIS/Include/cmsis_compiler.h CMSIS/Include/cmsis_gcc.h \
  CMSIS/Include/mpu_armv7.h CMSIS/Devices/STM32F4xx/Inc/system_stm32f4xx.h \
- Core/Inc/../../CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h \
- Core/Inc/i2c.h Core/Inc/lsm303dlhc.h
-Core/Inc/interrupt.h:
+ Core/Inc/../../CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h
+Core/Inc/lsm303dlhc.h:
+Core/Inc/i2c.h:
 Core/Inc/init.h:
 Core/Inc/../../CMSIS/Devices/STM32F4xx/Inc/stm32f4xx.h:
 CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h:
@@ -17,5 +18,3 @@ CMSIS/Include/cmsis_gcc.h:
 CMSIS/Include/mpu_armv7.h:
 CMSIS/Devices/STM32F4xx/Inc/system_stm32f4xx.h:
 Core/Inc/../../CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h:
-Core/Inc/i2c.h:
-Core/Inc/lsm303dlhc.h:

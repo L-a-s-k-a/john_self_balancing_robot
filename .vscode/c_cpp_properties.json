@@ -12,8 +12,8 @@
                 "STM32F407xx"
             ],
             "intelliSenseMode": "gcc-arm",
-            "compilerPath": "${env:ARMGCC_DIR}/arm-none-eabi-gcc-14.2.1.exe",
-            // "compilerPath": "${env:ARMGCC_DIR}/arm-none-eabi-gcc-13.2.1.exe",
+            // "compilerPath": "${env:ARMGCC_DIR}/arm-none-eabi-gcc-14.2.1.exe",
+            "compilerPath": "${env:ARMGCC_DIR}/arm-none-eabi-gcc-13.2.1.exe",
             "compilerArgs": [
                 "-mcpu=cortex-m4",
                 "-mthumb"

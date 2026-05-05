@@ -1,0 +1,98 @@
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccaf9GRc.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lsm303dlhc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/lsm303dlhc.c"
+  20              		.section	.text.func1,"ax",%progbits
+  21              		.align	1
+  22              		.global	func1
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	func1:
+  28              	.LFB130:
+   1:Core/Src/lsm303dlhc.c **** #include "lsm303dlhc.h"
+   2:Core/Src/lsm303dlhc.c **** 
+   3:Core/Src/lsm303dlhc.c **** uint16_t func1(void){
+  29              		.loc 1 3 21 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+   4:Core/Src/lsm303dlhc.c ****     uint8_t num_a = 5;
+  34              		.loc 1 4 5 view .LVU1
+  35              	.LVL0:
+   5:Core/Src/lsm303dlhc.c ****     uint8_t num_b = 10;
+  36              		.loc 1 5 5 view .LVU2
+   6:Core/Src/lsm303dlhc.c ****     return num_a + num_b;
+  37              		.loc 1 6 5 view .LVU3
+   7:Core/Src/lsm303dlhc.c **** }
+  38              		.loc 1 7 1 is_stmt 0 view .LVU4
+  39 0000 0F20     		movs	r0, #15
+  40 0002 7047     		bx	lr
+  41              		.cfi_endproc
+  42              	.LFE130:
+  44              		.section	.text.func2,"ax",%progbits
+  45              		.align	1
+  46              		.global	func2
+  47              		.syntax unified
+  48              		.thumb
+  49              		.thumb_func
+  51              	func2:
+  52              	.LFB131:
+   8:Core/Src/lsm303dlhc.c **** 
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccaf9GRc.s 			page 2
+
+
+   9:Core/Src/lsm303dlhc.c **** uint16_t func2(void){
+  53              		.loc 1 9 21 is_stmt 1 view -0
+  54              		.cfi_startproc
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57 0000 08B5     		push	{r3, lr}
+  58              	.LCFI0:
+  59              		.cfi_def_cfa_offset 8
+  60              		.cfi_offset 3, -8
+  61              		.cfi_offset 14, -4
+  10:Core/Src/lsm303dlhc.c ****     return func1();
+  62              		.loc 1 10 5 view .LVU6
+  63              		.loc 1 10 12 is_stmt 0 view .LVU7
+  64 0002 FFF7FEFF 		bl	func1
+  65              	.LVL1:
+  11:Core/Src/lsm303dlhc.c **** }...
+  66              		.loc 1 11 1 view .LVU8
+  67 0006 08BD     		pop	{r3, pc}
+  68              		.cfi_endproc
+  69              	.LFE131:
+  71              		.text
+  72              	.Letext0:
+  73              		.file 2 "C:/Programs/Tools/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/machine/_defau
+  74              		.file 3 "C:/Programs/Tools/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
+ARM GAS  C:\Users\nip6\AppData\Local\Temp\ccaf9GRc.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lsm303dlhc.c
+C:\Users\nip6\AppData\Local\Temp\ccaf9GRc.s:21     .text.func1:00000000 $t
+C:\Users\nip6\AppData\Local\Temp\ccaf9GRc.s:27     .text.func1:00000000 func1
+C:\Users\nip6\AppData\Local\Temp\ccaf9GRc.s:45     .text.func2:00000000 $t
+C:\Users\nip6\AppData\Local\Temp\ccaf9GRc.s:51     .text.func2:00000000 func2
+
+NO UNDEFINED SYMBOLS
